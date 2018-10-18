@@ -61,7 +61,26 @@ int main(){
 			break;
 		}
 		
-		
+		int file;
+		int z;
+		for(z = 0; argsarray[z] != NULL; z++)
+		{
+			if (strcmp(argsarray[z], readCommand) == 0)
+			{
+				argsarray[z] = '\0';
+				file = open(argsarray[z + 1], O_RDONLY, 0);
+				dup2(file, 0);
+				close(file);
+			}
+
+			else if (strcmp(argsarray[z], writeCommand) == 0)
+			{
+				argsarray[z] = '\0';
+				file = open(argsarray[z + 1], O_CREAT | O_WRONLY, 0666);
+				dup2(file, 1);
+				close(file);
+			}
+		}
 		
 		int j;
 		for(j = 0; j<i; j++){
@@ -70,27 +89,6 @@ int main(){
   
 		int pid = fork();
 		if (pid == 0) {
-			
-			int file;
-			int z;
-			for(z = 0; argsarray[z] != NULL; z++)
-			{
-				if (strcmp(argsarray[z], readCommand) == 0)
-				{
-					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_RDONLY, 0);
-					dup2(file, 0);
-					close(file);
-				}
-
-				else if (strcmp(argsarray[z], writeCommand) == 0)
-				{
-					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_CREAT | O_WRONLY, 0666);
-					dup2(file, 1);
-					close(file);
-				}
-			}
 			
 			printf("Child with pid %d, about to exec ls\n", getpid());
 			execv(argsarray[0], argsarray);
