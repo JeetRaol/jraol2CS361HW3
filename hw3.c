@@ -78,7 +78,7 @@ int main(){
 				if (strcmp(argsarray[z], readCommand) == 0)
 				{
 					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_RDONLY);
+					file = open(argsarray[z + 1], O_RDONLY, 0);
 					dup2(file, 0);
 					close(file);
 				}
@@ -86,7 +86,7 @@ int main(){
 				else if (strcmp(argsarray[z], writeCommand) == 0)
 				{
 					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_CREAT | O_TRUNC | O_WRONLY);
+					file = open(argsarray[z + 1], O_CREAT | O_WRONLY, 0666);
 					dup2(file, 1);
 					close(file);
 				}
