@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 
 //used code from lab 4  and 5
 char **args;
@@ -67,12 +68,13 @@ int main(){
 		int pid = fork();
 		if (pid == 0) {
 			
+			int file;
 			int z;
 			for(z = 0; argsarray[z] != NULL; z++)
 			{
 				if (strcmp(argsarray[z], "<") == 0)
 				{
-					argv[i] = '\0';
+					argsarray[z] = '\0';
 					file = open(argsarray[z + 1], O_RDONLY, 0);
 					dup2(file, 0);
 					close(file);
