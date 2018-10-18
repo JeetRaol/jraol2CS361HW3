@@ -1,3 +1,6 @@
+//Name: Jeet Raol
+//NetID: jraol2
+
 #include <stdio.h>
 #include <string.h>
 #include <signal.h>
@@ -7,7 +10,9 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
-//Used lab code and info from man pages
+//Tried founding out about file redirection and learned from
+//https://stackoverflow.com/questions/2605130/redirecting-exec-output-to-a-buffer-or-file
+//Used lab code and info from man pages.
 char **args;
 
 //signal handler for Ctrl-C. Allows user to terminate a running program
@@ -77,7 +82,7 @@ int main(){
 				{
 					argsarray[z] = '\0';
 					file = open(argsarray[z + 1], O_RDONLY, 0);
-					//dup2(file, 0); //replace input w file
+					dup2(file, 0); //replace input w file
 					close(file);
 				}
 
@@ -86,7 +91,7 @@ int main(){
 					argsarray[z] = '\0';
 					file = creat(argsarray[z + 1], 0666);
 					//creat^ is like open but has writing flags
-					//dup2(file, 1); //replace output w file
+					dup2(file, 1); //replace output w file
 					close(file);
 				}
 			}
