@@ -74,5 +74,8 @@ int main(){
 			wait(&status);
 			printf("My child has died with status %d. :(\n", WEXITSTATUS(status));
 		}
+		
+		free(argsarray[i]);
+		argsarray[i] = malloc(sizeof(char)*100);
   	}
 }
