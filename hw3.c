@@ -66,6 +66,27 @@ int main(){
   
 		int pid = fork();
 		if (pid == 0) {
+			
+			int z;
+			for(z = 0; argsarray[z] != NULL; z++)
+			{
+				if (strcmp(argsarray[z], "<") == 0)
+				{
+					argv[i] = '\0';
+					file = open(argsarray[z + 1], O_RDONLY, 0);
+					dup2(file, 0);
+					close(file);
+				}
+
+				else if (strcmp(argsarray[z], ">") == 0)
+				{
+					argsarray[z] = '\0';
+					file = open(argsarray[z + 1], O_CREAT | O_TRUNC | O_WRONLY, 0666);
+					dup2(file, 1);
+					close(file);
+				}
+			}
+			
 			printf("Child with pid %d, about to exec ls\n", getpid());
 			execv(argsarray[0], argsarray);
 		} else {
