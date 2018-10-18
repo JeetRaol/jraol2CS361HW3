@@ -38,6 +38,9 @@ int main(){
 	}
 	
 	char *quit = "exit";
+	char *readCommand = "<";
+	char *writeCommand = ">";
+	char *twoCommand = ";";
 		
 	while (true){
 		printf("CS361 >");
@@ -72,18 +75,18 @@ int main(){
 			int z;
 			for(z = 0; argsarray[z] != NULL; z++)
 			{
-				if (strcmp(argsarray[z], "<") == 0)
+				if(strcmp(argsarray[z], readCommand) == 0)
 				{
 					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_RDONLY, 0);
+					file = open(argsarray[z + 1], O_RDONLY);
 					dup2(file, 0);
 					close(file);
 				}
 
-				else if (strcmp(argsarray[z], ">") == 0)
+				else if(strcmp(argsarray[z], writeCommand) == 0)
 				{
 					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_CREAT | O_TRUNC | O_WRONLY, 0666);
+					file = open(argsarray[z + 1], O_APPEND);
 					dup2(file, 1);
 					close(file);
 				}
