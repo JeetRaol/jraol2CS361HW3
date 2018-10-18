@@ -75,18 +75,18 @@ int main(){
 			int z;
 			for(z = 0; argsarray[z] != NULL; z++)
 			{
-				if(strcmp(argsarray[z], readCommand) == 0)
+				if (strcmp(argsarray[z], readCommand) == 0)
 				{
 					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_RDONLY);
+					file = open(argsarray[z + 1], O_RDONLY, 0);
 					dup2(file, 0);
 					close(file);
 				}
 
-				else if(strcmp(argsarray[z], writeCommand) == 0)
+				else if (strcmp(argsarray[z], writeCommand) == 0)
 				{
 					argsarray[z] = '\0';
-					file = open(argsarray[z + 1], O_APPEND);
+					file = open(argsarray[z + 1], O_APPEND, 0666);
 					dup2(file, 1);
 					close(file);
 				}
