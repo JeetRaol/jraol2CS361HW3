@@ -56,6 +56,11 @@ int main(){
 		}
 		argsarray[i] = (char*)0;
 		
+		if(strcmp(argsarray[0], quit) == 0)
+		{
+			break;
+		}
+		
 		int j;
 		for(j = 0; j<i; j++){
 			printf("argsarray[%d]: %s\n", j, argsarray[j]);
@@ -64,10 +69,6 @@ int main(){
 		int pid = fork();
 		if(pid == 0){
 			
-			if(strcmp(argsarray[0], quit) == 0)
-			{
-				break;
-			}
 			int file;
 			int z;
 			for(z = 0; argsarray[z] != NULL; z++)
@@ -76,7 +77,7 @@ int main(){
 				{
 					argsarray[z] = '\0';
 					file = open(argsarray[z + 1], O_RDONLY, 0);
-					dup2(file, 0); //replace input w file
+					//dup2(file, 0); //replace input w file
 					close(file);
 				}
 
@@ -85,7 +86,7 @@ int main(){
 					argsarray[z] = '\0';
 					file = creat(argsarray[z + 1], 0666);
 					//creat^ is like open but has writing flags
-					dup2(file, 1); //replace output w file
+					//dup2(file, 1); //replace output w file
 					close(file);
 				}
 			}
