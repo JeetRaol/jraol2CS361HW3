@@ -3,6 +3,8 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 //used code from lab 4  and 5
 char **args;
