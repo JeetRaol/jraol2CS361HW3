@@ -80,7 +80,6 @@ int main(){
 			{
 				if (strcmp(argsarray[z], readCommand) == 0)
 				{
-					//argsarray[z] = '\0';
 					file = open(argsarray[z + 1], O_RDONLY, 0);
 					dup2(file, 0); //replace input w file
 					close(file);
@@ -88,7 +87,6 @@ int main(){
 
 				else if (strcmp(argsarray[z], writeCommand) == 0)
 				{
-					//argsarray[z] = '\0';
 					file = creat(argsarray[z + 1], 0666);
 					//creat^ is like open but has writing flags
 					dup2(file, 1); //replace output w file
@@ -107,6 +105,6 @@ int main(){
 		}
 		
 		free(argsarray[i]);
-		argsarray[i] = malloc(sizeof(char)*100);
+		argsarray[i] = malloc(sizeof(char) * 100);
   	}
 }
